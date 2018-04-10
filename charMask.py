@@ -23,13 +23,11 @@ class charMask:
 
         if(maskchar != ""):
                 charclass = getCharClassFromMaskChar(self, maskchar)
-                print charclass
                 self.name = charclass[0]
                 self.regex = charclass[1]
                 self.generated_space = charclass[2]
         elif(chartocover != ""):
                 charclass = getCharClassFromChar(self, chartocover)
-                print charclass
                 self.name = charclass[0]
                 self.regex = charclass[1]
                 self.generated_space = charclass[2]
