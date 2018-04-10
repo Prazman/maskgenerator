@@ -1,14 +1,20 @@
 #!/usr/bin/env python
-import pdb
 from charMask import charMask
+import sys
 
 
 def main():
-    pdb.set_trace()
-    mask1 = charMask(maskchar="u", chartocover="")
-    print mask1.gen_space
-    mask2 = charMask(maskchar="", chartocover="s")
-    print mask2.maskchar
+    print sys.version
+    mask1 = charMask("u", "")
+    print mask1
+    mask5 = charMask("H", "")
+    print mask5
+    mask2 = charMask("", "k")
+    print mask2
+    mask3 = charMask("", "2")
+    print mask3
+    mask4 = charMask("", "F")
+    print mask4
 
 
 if __name__ == '__main__':
