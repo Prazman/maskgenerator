@@ -12,7 +12,7 @@ def main():
     print mask1.generated_space
     words = ["abcd12", "fesc89", "ADE", "aaaa11", "zzzzaa"]
     for word in words:
-        print mask1.is_covered(word)
+        print mask1.covers(word)
 
     # mask2 = stringMask("", "abcd12")
     # print mask2.maskstring

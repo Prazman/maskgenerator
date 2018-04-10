@@ -2,6 +2,8 @@ import re
 
 
 class charMask:
+    "Mask object for a single char --> handles mask classes"
+    # Different char classes with associated info (genreated space, regex)
     mask_classes = (
         ('d', '[0-9]', 10),
         ('h', '[0-9a-f]', 16),
@@ -13,11 +15,12 @@ class charMask:
         ('d', '[\\x00-\\xFF]', 256)
     )
 
+    # Class constructor
     def __init__(self, maskchar, chartocover):
-
+        # Get char class from a maskchar letter (ex: luds=a)
         def getCharClassFromMaskChar(self, maskchar):
             return [item for item in self.mask_classes if item[0] == maskchar][0]
-
+        # Get minimal char class matching given char
         def getCharClassFromChar(self, char):
             return [item for item in self.mask_classes if re.match(item[1], char)][0]
 

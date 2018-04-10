@@ -4,7 +4,10 @@ import re
 
 
 class stringMask:
+    "Mask object for a whole word --> handles word covering"
+    # class constructor
     def __init__(self, maskstring, stringtocover):
+        # get the regex and generated space corresponding to mask string (ex: llldd)
         def getMaskRegexFromMaskString(maskstring):
             regex = ""
             generated_space = 1
@@ -14,6 +17,7 @@ class stringMask:
                 generated_space = generated_space * mask.generated_space
             return regex, generated_space
 
+        # get the name, regex and generated space for the minimal mask generated from a string
         def getMinimalMaskFromString(stringtocover):
             maskstring = ""
             maskregex = ""
@@ -24,17 +28,20 @@ class stringMask:
                 maskregex += mask.regex
                 generated_space *= mask.generated_space
             return maskstring, maskregex, generated_space
-
+        self.hitcount = 0
+        # Build mask from mask string (ex: lllldd)
         if(maskstring != ""):
             self.maskstring = maskstring
             mask = getMaskRegexFromMaskString(maskstring)
             self.regex = mask[0]
             self.generated_space = mask[1]
+        # Build mask from given string (ex: abcd89!)
         elif(stringtocover != ""):
             mask = getMinimalMaskFromString(stringtocover)
             self.maskstring = mask[0]
             self.regex = mask[1]
             self.generated_space = mask[2]
 
-    def is_covered(self, word):
-        return re.match(self.regex, word)
+    # Return True if mask covers word
+    def covers(self, word):
+        return re.match(self.regex, word) is not None
