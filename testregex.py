@@ -5,15 +5,19 @@ from stringMask import stringMask
 
 
 def main():
+    print "First mask string lllldd (4 noncapitalized letters, 2 digits"
     mask1 = stringMask("lllldd", "")
     print mask1.maskstring
     print mask1.regex
     print mask1.generated_space
+    words = ["abcd12", "fesc89", "ADE", "aaaa11", "zzzzaa"]
+    for word in words:
+        print mask1.is_covered(word)
 
-    mask2 = stringMask("", "abcd12")
-    print mask2.maskstring
-    print mask2.regex
-    print mask2.generated_space
+    # mask2 = stringMask("", "abcd12")
+    # print mask2.maskstring
+    # print mask2.regex
+    # print mask2.generated_space
     # print sys.version
     # mask1 = charMask("u", "")
     # print mask1

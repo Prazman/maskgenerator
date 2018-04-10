@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 from charMask import charMask
+import re
 
 
 class stringMask:
@@ -34,3 +35,6 @@ class stringMask:
             self.maskstring = mask[0]
             self.regex = mask[1]
             self.generated_space = mask[2]
+
+    def is_covered(self, word):
+        return re.match(self.regex, word)
