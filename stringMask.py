@@ -5,6 +5,8 @@ import re
 
 class stringMask:
     "Mask object for a whole word --> handles word covering"
+    _slots__ = ['maskstring', 'regex', 'generated_space', 'hitcount']
+
     # class constructor
     def __init__(self, maskstring, stringtocover):
         # get the regex and generated space corresponding to mask string (ex: llldd)

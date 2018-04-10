@@ -14,8 +14,8 @@ def main():
         print("File path {} does not exist. Exiting...".format(filepath))
         sys.exit()
 
-    files = {}
-    split_files(files, filepath)
+    # files = {}
+    # split_files(files, filepath)
     splitpath = "./split/"
     for filename in os.listdir("./split/"):
         # name = './split/file_' + str(f)
@@ -23,6 +23,7 @@ def main():
             learning_algorithm(fp)
             fp.close()
     print("--- %s seconds ---" % (time.time() - start_time))
+
 
 def learning_algorithm(file_pointer):
     def createMask(masks, word, default_hitcount):
@@ -33,18 +34,18 @@ def learning_algorithm(file_pointer):
     line_count = 0
     for line in file_pointer:
         line_count += 1
+        if line_count % 10 == 0:
+            print str(line_count) + "words so far... mask lenght " + str(len(masks))
         word = line.rstrip('\n')
         if len(masks) == 0:
             createMask(masks, word, 0)
-        found = 0
         for mask in masks:
             # pdb.set_trace()
             if mask.covers(word):
                 mask.hitcount += 1
-                found = 1
+                break
         else:
-            if found == 0:
-                createMask(masks, word, 1)
+            createMask(masks, word, 1)
     else:
         f = open('masks.dic', 'a')
         if len(masks) > 0:

@@ -11,10 +11,10 @@ class charMask:
         ('l', '[a-z]', 26),
         ('u', '[A-Z]', 26),
         ('s', '[!@#\$%\^\&*\)\(+=._-]', 32),
-        ('H', '[a-zA-Z0-9[!@#\$%\^\&*\)\(+=._-]', 94),
-        ('d', '[\\x00-\\xFF]', 256)
+        ('a', '[a-zA-Z0-9[!@#\$%\^\&*\)\(+=._-]', 94),
+        ('b', '[\\x00-\\xFF]', 256)
     )
-
+    _slots__ = ['name', 'regex','generated_space']
     # Class constructor
     def __init__(self, maskchar, chartocover):
         # Get char class from a maskchar letter (ex: luds=a)
