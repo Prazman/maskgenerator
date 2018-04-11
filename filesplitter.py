@@ -3,7 +3,21 @@ import sys
 import os
 import pdb
 import time
+import cProfile
 from stringMask import stringMask
+
+
+def do_cprofile(func):
+    def profiled_func(*args, **kwargs):
+        profile = cProfile.Profile()
+        try:
+            profile.enable()
+            result = func(*args, **kwargs)
+            profile.disable()
+            return result
+        finally:
+            profile.print_stats()
+    return profiled_func
 
 
 def main():
@@ -25,17 +39,19 @@ def main():
     print("--- %s seconds ---" % (time.time() - start_time))
 
 
+@do_cprofile
 def learning_algorithm(file_pointer):
     def createMask(masks, word, default_hitcount):
         newmask = stringMask("", word)
         newmask.hitcount = 1 if default_hitcount else 0
         masks.append(newmask)
+        masks.sort(key=lambda x: x.generated_space)
     masks = []
     line_count = 0
     for line in file_pointer:
         line_count += 1
-        if line_count % 10 == 0:
-            print str(line_count) + "words so far... mask lenght " + str(len(masks))
+        # if line_count % 10 == 0:
+        #     print str(line_count) + "words so far... mask lenght " + str(len(masks))
         word = line.rstrip('\n')
         if len(masks) == 0:
             createMask(masks, word, 0)
@@ -80,7 +96,7 @@ def split_files(files, filepath):
         else:
             for f in files:
                 files[f].close()
-                print "Length"+ str(f) + " File was closed"
+                print "Length" + str(f) + " File was closed"
             print "Splitted file into same length files"
 
 
