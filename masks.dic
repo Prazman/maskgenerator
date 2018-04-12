@@ -1,350 +1,64 @@
-100 words of length 1
+17 words of length 10
 Masklist
-Mask :s
-Hits :40
-Ratio :0.4
-Regex :^\W|_{1}$
-Generated space :32
+Mask :llllllllll
+Hits :4
+Ratio :0.235294117647
+Regex :^[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}$
+Generated space :141167095653376
 
-Mask :l
-Hits :27
-Ratio :0.27
-Regex :^[a-z]{1}$
-Generated space :26
-
-Mask :u
-Hits :22
-Ratio :0.22
-Regex :^[A-Z]{1}$
-Generated space :26
+Mask :lldlllllll
+Hits :3
+Ratio :0.176470588235
+Regex :^[a-z]{1}[a-z]{1}[0-9]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}$
+Generated space :54295036789760
 
 End of masklist 
 
-3459918 words of length 10
+1 words of length 13
 Masklist
-Mask :lllllllddd
-Hits :158380
-Ratio :0.0457756513305
-Regex :^[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[0-9]{1}[0-9]{1}[0-9]{1}$
-Generated space :8031810176000
-
-Mask :dddddddlll
-Hits :14389
-Ratio :0.00415876908065
-Regex :^[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[a-z]{1}[a-z]{1}[a-z]{1}$
-Generated space :175760000000
-
-End of masklist 
-
-1444873 words of length 11
-Masklist
-Mask :llllllllldd
-Hits :135716
-Ratio :0.0939293626499
-Regex :^[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[0-9]{1}[0-9]{1}$
-Generated space :542950367897600
-
-Mask :dddddddddll
-Hits :2389
-Ratio :0.00165343251621
-Regex :^[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[a-z]{1}[a-z]{1}$
-Generated space :676000000000
-
-End of masklist 
-
-914710 words of length 12
-Masklist
-Mask :lllllllllldd
-Hits :67648
-Ratio :0.0739556799423
-Regex :^[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[0-9]{1}[0-9]{1}$
-Generated space :14116709565337600
-
-Mask :ddldddddddll
-Hits :0
-Ratio :0.0
-Regex :^[0-9]{1}[0-9]{1}[a-z]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[a-z]{1}[a-z]{1}$
-Generated space :17576000000000
-
-End of masklist 
-
-509177 words of length 13
-Masklist
-Mask :lllllllllllld
-Hits :16729
-Ratio :0.0328549797025
-Regex :^[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[0-9]{1}$
+Mask :llllllllllldl
+Hits :1
+Ratio :1.0
+Regex :^[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[0-9]{1}[a-z]{1}$
 Generated space :954289566616821760
 
-Mask :llllddddddddl
-Hits :21
-Ratio :4.12430255098e-05
-Regex :^[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[a-z]{1}$
-Generated space :1188137600000000
-
 End of masklist 
 
-327639 words of length 14
+21 words of length 8
 Masklist
-Mask :llllllllllllld
-Hits :7971
-Ratio :0.0243286055689
-Regex :^[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[0-9]{1}$
-Generated space :24811528732037365760
+Mask :llllllll
+Hits :9
+Ratio :0.428571428571
+Regex :^[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}$
+Generated space :208827064576
 
-Mask :lllldddddddddl
-Hits :18
-Ratio :5.49385146457e-05
-Regex :^[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[a-z]{1}$
-Generated space :11881376000000000
-
-End of masklist 
-
-202523 words of length 15
-Masklist
-Mask :lllllllllllllll
-Hits :65351
-Ratio :0.322684337088
-Regex :^[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}$
-Generated space :1677259342285725925376
-
-Mask :llllllldddddddd
-Hits :4234
-Ratio :0.0209062674363
-Regex :^[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}$
-Generated space :803181017600000000
-
-End of masklist 
-
-134063 words of length 16
-Masklist
-Mask :llllllllllllllll
-Hits :37223
-Ratio :0.277653043718
-Regex :^[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}$
-Generated space :43608742899428874059776
-
-Mask :ddlllddddddddddd
-Hits :1
-Ratio :7.45917963942e-06
-Regex :^[0-9]{1}[0-9]{1}[a-z]{1}[a-z]{1}[a-z]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}$
-Generated space :175760000000000000
-
-End of masklist 
-
-42381 words of length 17
-Masklist
-Mask :lllllllllllllllll
-Hits :14575
-Ratio :0.343904107973
-Regex :^[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}$
-Generated space :1133827315385150725554176
-
-Mask :llllllllldddddddd
-Hits :736
-Ratio :0.0173662726222
-Regex :^[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}$
-Generated space :542950367897600000000
-
-End of masklist 
-
-26779 words of length 18
-Masklist
-Mask :llllllllllllllllll
-Hits :9296
-Ratio :0.347137682512
-Regex :^[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}$
-Generated space :29479510200013918864408576
-
-Mask :lllllllddddddddddd
-Hits :142
-Ratio :0.00530266253408
-Regex :^[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}$
-Generated space :803181017600000000000
-
-End of masklist 
-
-17190 words of length 19
-Masklist
-Mask :lllllllllllllllllll
-Hits :5658
-Ratio :0.329144851658
-Regex :^[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}$
-Generated space :766467265200361890474622976
-
-Mask :llllllllllllldddddd
-Hits :265
-Ratio :0.0154159394997
-Regex :^[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}$
-Generated space :2481152873203736576000000
-
-Mask :lllllllllllllddsddd
+Mask :llllllul
 Hits :3
-Ratio :0.000174520069808
-Regex :^[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[0-9]{1}[0-9]{1}\W|_{1}[0-9]{1}[0-9]{1}[0-9]{1}$
-Generated space :7939689194251957043200000
+Ratio :0.142857142857
+Regex :^[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[A-Z]{1}[a-z]{1}$
+Generated space :208827064576
 
 End of masklist 
 
-1090 words of length 2
+15 words of length 9
 Masklist
-Mask :ll
-Hits :455
-Ratio :0.417431192661
-Regex :^[a-z]{1}[a-z]{1}$
-Generated space :676
+Mask :lllllulll
+Hits :3
+Ratio :0.2
+Regex :^[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[A-Z]{1}[a-z]{1}[a-z]{1}[a-z]{1}$
+Generated space :5429503678976
 
-Mask :dd
-Hits :100
-Ratio :0.0917431192661
-Regex :^[0-9]{1}[0-9]{1}$
-Generated space :100
+Mask :lllluulll
+Hits :3
+Ratio :0.2
+Regex :^[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[A-Z]{1}[A-Z]{1}[a-z]{1}[a-z]{1}[a-z]{1}$
+Generated space :5429503678976
 
-Mask :ud
-Hits :12
-Ratio :0.0110091743119
-Regex :^[A-Z]{1}[0-9]{1}$
-Generated space :260
-
-End of masklist 
-
-14218 words of length 20
-Masklist
-Mask :llllllllllllllllllll
-Hits :4160
-Ratio :0.292586861725
-Regex :^[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}$
-Generated space :19928148895209409152340197376
-
-Mask :lllldddddddddddddddd
-Hits :16
-Ratio :0.00112533408356
-Regex :^[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}$
-Generated space :4569760000000000000000
-
-Mask :llllddddddddddddsddd
-Hits :1
-Ratio :7.03333802223e-05
-Regex :^[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}\W|_{1}[0-9]{1}[0-9]{1}[0-9]{1}$
-Generated space :14623232000000000000000
-
-End of masklist 
-
-7251 words of length 3
-Masklist
-Mask :lll
-Hits :3619
-Ratio :0.499103571921
-Regex :^[a-z]{1}[a-z]{1}[a-z]{1}$
-Generated space :17576
-
-Mask :udd
-Hits :25
-Ratio :0.00344780030341
-Regex :^[A-Z]{1}[0-9]{1}[0-9]{1}$
-Generated space :2600
-
-Mask :ddd
-Hits :738
-Ratio :0.101779064957
-Regex :^[0-9]{1}[0-9]{1}[0-9]{1}$
-Generated space :1000
-
-End of masklist 
-
-40420 words of length 4
-Masklist
-Mask :llll
-Hits :18757
-Ratio :0.464052449283
-Regex :^[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}$
-Generated space :456976
-
-Mask :dddd
-Hits :9306
-Ratio :0.23023255814
-Regex :^[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}$
-Generated space :10000
-
-End of masklist 
-
-530457 words of length 5
-Masklist
-Mask :lllll
-Hits :182196
-Ratio :0.343469875975
-Regex :^[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}$
-Generated space :11881376
-
-Mask :ddddd
-Hits :55032
-Ratio :0.103744507095
-Regex :^[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}$
-Generated space :100000
-
-End of masklist 
-
-2780941 words of length 6
-Masklist
-Mask :llllld
-Hits :145592
-Ratio :0.0523535019261
-Regex :^[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[0-9]{1}$
-Generated space :118813760
-
-Mask :dddddl
-Hits :16973
-Ratio :0.00610332977219
-Regex :^[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[a-z]{1}$
-Generated space :2600000
-
-End of masklist 
-
-3433289 words of length 7
-Masklist
-Mask :llllldd
-Hits :360987
-Ratio :0.105143202335
-Regex :^[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[0-9]{1}[0-9]{1}$
-Generated space :1188137600
-
-Mask :dddddll
-Hits :9722
-Ratio :0.00283168704994
-Regex :^[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[a-z]{1}[a-z]{1}$
-Generated space :67600000
-
-End of masklist 
-
-6039080 words of length 8
-Masklist
-Mask :lllllldd
-Hits :605884
-Ratio :0.100327202157
-Regex :^[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[0-9]{1}[0-9]{1}$
-Generated space :30891577600
-
-Mask :ddddddll
-Hits :44801
-Ratio :0.0074185140783
-Regex :^[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[a-z]{1}[a-z]{1}$
-Generated space :676000000
-
-End of masklist 
-
-3759502 words of length 9
-Masklist
-Mask :llllllldd
-Hits :407080
-Ratio :0.108280298827
-Regex :^[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[0-9]{1}[0-9]{1}$
-Generated space :803181017600
-
-Mask :dddddddll
-Hits :15355
-Ratio :0.00408431755057
-Regex :^[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[0-9]{1}[a-z]{1}[a-z]{1}$
-Generated space :6760000000
+Mask :lllllllll
+Hits :2
+Ratio :0.133333333333
+Regex :^[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}[a-z]{1}$
+Generated space :5429503678976
 
 End of masklist 
 
