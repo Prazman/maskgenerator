@@ -69,47 +69,59 @@ def learning_algorithm(file_pointer):
         print "End of length" + str(masks[0].maskstring) + " file "
         print str(line_count) + " words treated"
 
-
+@do_cprofile
 def stat_algorithm(file_pointer):
     def get_char_class_from_char(char):
         mask = charMask("", char)
         return mask.name
 
-    def get_coverage_count(maskstring, lines):
+    def get_coverage_count(mask, lines):
         counter = 0
-        mask = stringMask(maskstring, "")
         for line in lines:
             if mask.covers(line):
                 counter += 1
         else:
             return counter
 
-    def get_best_mask(char_stats):
+    def get_best_masks(char_stats):
         wordlength = len(char_stats)
-        bestmask = ""
-        for i in range(wordlength):
-            bestmaskchar = char_stats[i][0][0]
-            bestmask += bestmaskchar
+        masks = []
+        for position in range(best_masks_number):
+            bestmaskstring = ""
+            for i in range(wordlength):
+                if len(char_stats[i]) > position:
+                    char = char_stats[i][position][0]
+                else:
+                    char = char_stats[i][-1][0]
+                bestmaskstring += char
+            else:
+                bestmask = stringMask(bestmaskstring, "")
+                if bestmask.maskstring not in(item.maskstring for item in masks):
+                    masks.append(bestmask)
         else:
-            return bestmask
-
+            return masks
+    best_masks_number = 4
+    rejection_ratio = 0.15
     char_stats = []
     lines = list(file_pointer)
+    line_count = len(lines)
     wordlength = len(lines[0])
+    total_generated_space = 0
     #last char is \n
     for index in range(wordlength - 1):
         chars_at_index = [line[index] for line in lines if line]
         charmasks_at_index = map(get_char_class_from_char, chars_at_index)
-        char_distrib = Counter(charmasks_at_index).items()
+        char_distrib = Counter(charmasks_at_index).most_common(best_masks_number)
+        char_distrib = filter(lambda x: x[1] / float(line_count) > rejection_ratio, char_distrib)
         char_stats.append(char_distrib)
     else:
-        print char_stats
-        bestmask = get_best_mask(char_stats)
-        print "Best mask is " + bestmask
-        cov_count = get_coverage_count(bestmask, lines)
-        cov_ratio = cov_count / float(len(lines))
-        print "Coverage count is" + str(cov_count)
-        print "Coverage ratio is " + str(cov_ratio)
+        masks = get_best_masks(char_stats)
+        print "Coverage calculation..."
+        for mask in masks:
+            total_generated_space += mask.generated_space
+            mask.hitcount = get_coverage_count(mask, lines)
+        print_status(line_count,3,total_generated_space)
+        print_masks_to_file(masks, len(lines))
 
 
 def print_status(line_count, masks_len, total_generated_space):
