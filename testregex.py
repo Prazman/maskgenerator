@@ -8,11 +8,16 @@ def main():
     print "First mask string lllldd (4 noncapitalized letters, 2 digits"
     mask1 = stringMask("lllldd", "")
     print mask1.maskstring
-    print mask1.regex
+    print mask1.regexstring
     print mask1.generated_space
-    words = ["abcd12", "fesc89", "ADE", "aaaa11", "zzzzaa"]
+    words = ["zzzz12", "fesc89", "ADE", "azaa11", "zzzzaa"]
     for word in words:
         print mask1.covers(word)
+
+    mask2 = stringMask("", words[0])
+    for word in words:
+        print mask2.covers(word)
+
 
     # mask2 = stringMask("", "abcd12")
     # print mask2.maskstring
