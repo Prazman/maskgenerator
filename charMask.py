@@ -1,14 +1,15 @@
 import re
 import pdb
+
 mask_classes = (
     ('d', '[0-9]{1}', re.compile('^[0-9]{1}$'), [(48, 57)], 10),
-    ('h', '[0-9a-f]{1}', re.compile('^[0-9a-f]{1}$'), [(48, 57), (97, 102)], 16),
-    ('H', '[0-9A-F]{1}', re.compile('^[0-9A-F]{1}$'), [(48, 57), (65, 70)], 16),
     ('l', '[a-z]{1}', re.compile('^[a-z]{1}$'), [(97, 122)], 26),
     ('u', '[A-Z]{1}', re.compile('^[A-Z]{1}$'), [(65, 90)], 26),
-    ('s', '\W|_{1}', re.compile('^\W|_{1}$'), [(33, 47),(58, 64),(87, 91),(123, 127)], 32),
-    ('a', '[a-zA-Z0-9]\W{1}', re.compile('^[a-zA-Z0-9]\W{1}$'), [(33, 127)], 94),
-    ('b', '[\\x00-\\xFF]{1}', re.compile('^[\\x00-\\xFF]{1}$'), [(33, 256)], 256)
+    ('h', '[0-9a-f]{1}', re.compile('^[0-9a-f]{1}$'), [(48, 57), (97, 102)], 16),
+    ('H', '[0-9A-F]{1}', re.compile('^[0-9A-F]{1}$'), [(48, 57), (65, 70)], 16),
+    ('s', '\W|_{1}', re.compile('^\W|_{1}$'), [(32, 47), (58, 64), (87, 91), (123, 127)], 32),
+    ('a', '[a-zA-Z0-9]\W{1}', re.compile('^[a-zA-Z0-9]\W{1}$'), [(32, 127)], 94),
+    ('b', '[\\x00-\\xFF]{1}', re.compile('^[\\x00-\\xFF]{1}$'), [(32, 256)], 256)
 )
 
 
@@ -27,11 +28,8 @@ def getCharClassFromCharDec(char):
 
 
 def inbounds(boundaries_array, char):
-    print "Char is " + char
     dec_value = ord(char)
-    print ord(char)
     for bounds in boundaries_array:
-        print bounds[0], bounds[1]
         if dec_value <= bounds[1] and dec_value >= bounds[0]:
             return True
     else:

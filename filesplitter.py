@@ -107,12 +107,20 @@ def stat_algorithm(file_pointer):
     line_count = len(lines)
     wordlength = len(lines[0])
     total_generated_space = 0
+    print "Starting to treat words of length " + str(wordlength)
+    print "Total lines : " + str(line_count)
+    print  "Params: Best masks " + str(best_masks_number) + "Rejection " + str(rejection_ratio)
     #last char is \n
     for index in range(wordlength - 1):
+        print "Starting stats on letter " + str(index)
         chars_at_index = [line[index] for line in lines if line]
         charmasks_at_index = map(get_char_class_from_char, chars_at_index)
         char_distrib = Counter(charmasks_at_index).most_common(best_masks_number)
+        print "Complete Char distrib"
+        print char_distrib
         char_distrib = filter(lambda x: x[1] / float(line_count) > rejection_ratio, char_distrib)
+        print "Char distrib after ratio applied"
+        print char_distrib
         char_stats.append(char_distrib)
     else:
         masks = get_best_masks(char_stats)
@@ -120,7 +128,7 @@ def stat_algorithm(file_pointer):
         for mask in masks:
             total_generated_space += mask.generated_space
             mask.hitcount = get_coverage_count(mask, lines)
-        print_status(line_count,3,total_generated_space)
+        print_status(line_count,len(masks),total_generated_space)
         print_masks_to_file(masks, len(lines))
 
 
@@ -157,6 +165,7 @@ def write_line_to_files(line, files):
 
 
 def split_files(files, filepath):
+    shuffle = True
     print "Start splitting operation..."
     with open(filepath) as fp:
         for line in fp:
