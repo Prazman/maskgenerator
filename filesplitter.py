@@ -31,20 +31,30 @@ def main():
         print("File path {} does not exist. Exiting...".format(filepath))
         sys.exit()
 
-    files = {}
-    split_files(files, filepath)
+    # files = {}
+    # split_files(files, filepath)
     splitpath = "./split/"
+    all_masks = []
+    total_generated_space = 0
+    total_lines = 0
     for filename in os.listdir(splitpath):
-        total_generated_space = 0
-        masks = []
         # name = './split/file_' + str(f)
         with open(os.path.join(splitpath, filename), 'r') as fp:
             # learning_algorithm(fp)
-            generated_space, masks = stat_algorithm(fp)
+            lines_read, generated_space, masks = stat_algorithm(fp)
+            all_masks += masks
             total_generated_space += generated_space
+            total_lines += lines_read
             fp.close()
             print("--- %s seconds ---" % (time.time() - start_time))
     else:
+        total_hitratio = 0
+        for mask in all_masks:
+            total_hitratio += mask.hitcount
+        else:
+            print "Total hits " + str(total_hitratio)
+            print "Total Lines" + str(total_lines)
+            print "Coverage Ratio" + str(total_hitratio / float(total_lines))
         print "Generated space " + str(total_generated_space)
         if total_generated_space > maximum_generated_space:
             print "Game Over"
@@ -78,7 +88,7 @@ def learning_algorithm(file_pointer):
         print_masks_to_file(masks, line_count)
         print "End of length" + str(masks[0].maskstring) + " file "
         print str(line_count) + " words treated"
-        return total_generated_space, masks
+        return line_count, total_generated_space, masks
 
 
 @do_cprofile
@@ -87,7 +97,7 @@ def stat_algorithm(file_pointer):
         mask = charMask("", char)
         return mask.name
 
-    def get_coverage_count(mask, lines):
+    def get_coverage_count(mask):
         counter = 0
         for line in lines:
             if mask.covers(line):
@@ -95,12 +105,12 @@ def stat_algorithm(file_pointer):
         else:
             return counter
 
-    def sort_best_masks(masks, line_count):
+    def sort_best_masks(masks):
         total_generated_space = 0
         kept_masks = []
         print "Generated masks "
         for mask in masks:
-            mask.hitcount = get_coverage_count(mask, lines)
+            mask.hitcount = get_coverage_count(mask)
             hitratio = mask.hitcount / float(line_count)
             if hitratio > mask_rejection_ratio:
                 kept_masks.append(mask)
@@ -109,8 +119,6 @@ def stat_algorithm(file_pointer):
             else:
                 print mask.maskstring + " Rejected with ratio " + str(hitratio)
         else:
-            print "Kept masks "
-            print masks
             return total_generated_space, kept_masks
 
     def build_best_masks(char_stats):
@@ -128,7 +136,7 @@ def stat_algorithm(file_pointer):
 
     best_masks_number = 4
     char_rejection_ratio = 0.05
-    mask_rejection_ratio = 0.10
+    mask_rejection_ratio = 0.05
     char_stats = []
     lines = list(file_pointer)
     line_count = len(lines)
@@ -147,17 +155,17 @@ def stat_algorithm(file_pointer):
         char_distrib = Counter(charmasks_at_index).most_common(best_masks_number)
         print "Complete Char distrib"
         print char_distrib
-        char_distrib = filter(lambda x: x[1] / float(line_count) > char_rejection_ratio, char_distrib)
+        # char_distrib = filter(lambda x: x[1] / float(line_count) > char_rejection_ratio, char_distrib)
         print "Char distrib after ratio applied"
         print char_distrib
         char_stats.append(char_distrib)
     else:
         best_masks = build_best_masks(char_stats)
         print "Coverage calculation..."
-        total_generated_space, masks = sort_best_masks(best_masks, line_count)
+        total_generated_space, masks = sort_best_masks(best_masks)
         print_status(line_count, len(masks), total_generated_space)
         print_masks_to_file(masks, len(lines))
-        return total_generated_space, masks
+        return line_count, total_generated_space, masks
 
 
 def print_status(line_count, masks_len, total_generated_space):
