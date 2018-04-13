@@ -3,8 +3,11 @@ from charMask import charMask
 import re
 
 
-# get the regex and generated space corresponding to mask string (ex: llldd)
 def getMaskRegexFromMaskString(maskstring):
+    """ Builds regex concatenating regexes for one character mask
+    Ex: uudl    --> ^[A-Z]{1}[A-Z]{1}[0-9]{1}[a-z]{1}$
+
+    """
     regex = "^"
     generated_space = 1
     for char in maskstring:
@@ -15,8 +18,12 @@ def getMaskRegexFromMaskString(maskstring):
     return regex, generated_space
 
 
-# get the name, regex and generated space for the minimal mask generated from a string
 def getMinimalMaskFromString(stringtocover):
+    """ Build a mask matching given matchstring
+        Ex: Azer123 --> 
+        mask: ulllddd
+        generated_space: 26*26^4*10^4
+    """
     maskstring = ""
     maskregex = "^"
     generated_space = 1

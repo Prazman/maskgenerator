@@ -18,16 +18,31 @@ def getCharClassFromMaskChar(maskchar):
     return [item for item in mask_classes if item[0] == maskchar][0]
 
 
-# Get minimal char class matching given char
 def getCharClassFromChar(char):
+    """ Get character class from character (Regex)
+    Returns char class item
+    Finds the charclass using regex
+    Ex: 'a' matches regex '[a-z]{1}' --> a is class 'l'
+    """
     return [item for item in mask_classes if item[2].match(char)][0]
 
 
 def getCharClassFromCharDec(char):
+    """ Get character class from character (decimal)
+    Returns char class item
+    Finds the charclass using decimal ranges
+    Ex: Decimal value of 'a' is 97 --> a is class 'l'
+    """
     return [item for item in mask_classes if inbounds(item[3], char)][0]
 
 
 def inbounds(boundaries_array, char):
+    """ Is value between set of bounds
+    Ex: Boundset = [(1, 8), (25, 32)]
+    7 is in bounds
+    15 is out bounds
+    28 is in bounds
+    """
     dec_value = ord(char)
     for bounds in boundaries_array:
         if dec_value <= bounds[1] and dec_value >= bounds[0]:
@@ -37,7 +52,7 @@ def inbounds(boundaries_array, char):
 
 
 class charMask:
-    "Mask object for a single char --> handles mask classes"
+    "Mask object for a single char --> charclass character to charclass, or char to charclass"
     # Different char classes with associated info (genreated space, regex)
 
     _slots__ = ['name', 'regex', 'generated_space']
