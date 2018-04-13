@@ -3,6 +3,7 @@ import sys
 import os
 import pdb
 import time
+import itertools
 from collections import Counter
 import cProfile
 from stringMask import stringMask
@@ -31,8 +32,8 @@ def main():
         print("File path {} does not exist. Exiting...".format(filepath))
         sys.exit()
 
-    # files = {}
-    # split_files(files, filepath)
+    files = {}
+    split_files(files, filepath)
     splitpath = "./split/"
     all_masks = []
     total_generated_space = 0
@@ -123,19 +124,23 @@ def stat_algorithm(file_pointer):
 
     def build_best_masks(char_stats):
         masks = []
-        default_mask = map(lambda x: x[0][0], char_stats)
-        for letter_index, stat in enumerate(char_stats):
-            for char in stat:
-                newmask = default_mask[:]
-                newmask[letter_index] = char[0]
-                maskstring = "".join(newmask)
-                if maskstring not in(item.maskstring for item in masks):
-                    masks.append(stringMask(maskstring, ""))
-        else:
-            return masks
+        charsets_matrix = []
+        #first, build a matrix containing the possible chars for index, => charset
+        for stats in char_stats:
+            charset = [item[0] for item in stats]
+            charsets_matrix.append(charset)
+        #Use of cartesion product to find all combinations of chars (use set to remove duplicate)
+        combinations = set(itertools.product(*charsets_matrix))
+        for element in combinations:
+            #Build the mask object, if not already present
+            maskstring = "".join(element)
+            if maskstring not in(item.maskstring for item in masks):
+                masks.append(stringMask(maskstring, ""))
+
+        return masks
 
     best_masks_number = 4
-    char_rejection_ratio = 0.05
+    char_rejection_ratio = 0
     mask_rejection_ratio = 0.05
     char_stats = []
     lines = list(file_pointer)
@@ -155,7 +160,7 @@ def stat_algorithm(file_pointer):
         char_distrib = Counter(charmasks_at_index).most_common(best_masks_number)
         print "Complete Char distrib"
         print char_distrib
-        # char_distrib = filter(lambda x: x[1] / float(line_count) > char_rejection_ratio, char_distrib)
+        char_distrib = filter(lambda x: x[1] / float(line_count) > char_rejection_ratio, char_distrib)
         print "Char distrib after ratio applied"
         print char_distrib
         char_stats.append(char_distrib)
