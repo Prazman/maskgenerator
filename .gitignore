@@ -3,3 +3,6 @@ test.txt
 hashkiller.dic
 masks.dic
 masks_old.dic
+test_files/
+output/
+*.pyc

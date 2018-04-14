@@ -22,3 +22,8 @@ def file_len(filepath):
         for i, n in enumerate(f):
             pass
         return i + 1
+
+
+def clearFile(fName):
+    with open(fName, "w"):
+        pass

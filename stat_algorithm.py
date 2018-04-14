@@ -18,7 +18,7 @@ def stat_algorithm(file_pointer):
     def get_coverage_count(mask):
         """ Count lines matching mask
         """
-        return len([line for line in lines if mask.covers(line)])
+        return sum(mask.covers(line) for line in lines)
 
     def sort_best_masks(masks):
         """ Get best masks from coverage calculation
