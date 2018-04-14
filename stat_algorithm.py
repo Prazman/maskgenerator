@@ -75,13 +75,13 @@ def stat_algorithm(file_pointer):
     char_stats = []
     lines = list(file_pointer)
     line_count = len(lines)
-    wordlength = len(lines[0])
+    wordlength = len(lines[0])-1
     total_generated_space = 0
     print "Starting to treat words of length " + str(wordlength)
     print "Total lines : " + str(line_count)
     print "Char Rejection Ratio : {0:.0f}%".format(char_rejection_ratio * 100)
     print "Mask rejection Ratio : {0:.0f}%".format(mask_rejection_ratio * 100)
-    for index in range(wordlength - 1):   # forget \n
+    for index in range(wordlength):   # forget \n
         print "Starting stats on letter " + str(index)
         chars_at_index = [line[index] for line in lines if line]
         charmasks_at_index = [get_char_class_from_char(item) for item in chars_at_index]

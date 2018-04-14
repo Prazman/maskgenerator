@@ -3,6 +3,8 @@ import cProfile
 
 
 def do_cprofile(func):
+    """ Decorator function for performance profiling
+    """
     def profiled_func(*args, **kwargs):
         profile = cProfile.Profile()
         try:
@@ -16,6 +18,8 @@ def do_cprofile(func):
 
 
 def file_len(filepath):
+    """ Get the number of lines in a file
+    """
     if not os.path.isfile(filepath):
         return 0
     with open(filepath) as f:
@@ -25,5 +29,7 @@ def file_len(filepath):
 
 
 def clearFile(fName):
+    """ Remove the content of a file 
+    """
     with open(fName, "w"):
         pass

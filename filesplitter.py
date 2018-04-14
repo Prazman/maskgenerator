@@ -4,7 +4,7 @@ import os
 import pdb
 import time
 import re
-from utils import file_len,clearFile
+from utils import file_len, clearFile
 from stat_algorithm import stat_algorithm
 from learning_algorithm import learning_algorithm
 
@@ -12,7 +12,7 @@ maximum_generated_space = 81442800000000
 reject_special_chars = True
 split_path = "./split/"
 output_path = "./output/masks.dic"
-max_line_length = 2
+max_line_length = 10
 
 
 def main(**kwargs):
@@ -24,6 +24,7 @@ def main(**kwargs):
     if not os.path.isfile(filepath):
         print("File path {} does not exist. Exiting...".format(filepath))
         sys.exit()
+    # split files if requested, get line counts
     if split:
         total_lines, rejected_lines = split_files(filepath)
     else:
@@ -32,8 +33,8 @@ def main(**kwargs):
     all_masks = []
     cumulated_generated_space = 0
     treated_lines = total_lines - rejected_lines
+    #only open split files of correct length
     for filename in os.listdir(split_path):
-        # name = './split/file_' + str(f)
         if filename == "rejected_lines":
             continue
         if int(filename[-1]) <= max_line_length:
@@ -47,16 +48,20 @@ def main(**kwargs):
                 fp.close()
                 print("--- %s seconds ---" % (time.time() - start_time))
     else:
-        total_hitratio = 0
+        total_hits = 0
         total_generated_space = 0
         for mask in all_masks:
-            total_hitratio += mask.hitcount
+            total_hits += mask.hitcount
             total_generated_space += mask.generated_space
         else:
-            coverage_ratio = total_hitratio / float(total_lines) * 100
-            print "Total hits " + str(total_hitratio)
-            print "Total Lines" + str(total_lines)
-            print "Total treated lines " + str(treated_lines)
+            rejection_ratio = rejected_lines / float(total_lines) * 100
+            coverage_ratio = total_hits / float(total_lines) * 100
+            print "Total Lines : " + str(total_lines)
+            print "Total Rejected Lines : " + str(rejected_lines)
+            print "Rejection Ratio : " + str(rejection_ratio)
+            print "\n"
+            print "Total treated lines : " + str(treated_lines)
+            print "Total hits : " + str(total_hits)
             print "Coverage Ratio: {0:.2f}%".format(coverage_ratio)
         print "Generated space " + str(total_generated_space)
         if total_generated_space > maximum_generated_space:
@@ -66,12 +71,16 @@ def main(**kwargs):
 
 
 def print_status(line_count, masks_len, total_generated_space):
+    """ Prints current operation status
+    """
     print str(line_count) + " words treated so far... "
     print str(masks_len) + " masks generated so far..."
     print str(total_generated_space) + " generated space so far..."
 
 
 def print_masks_to_file(masks, line_count, total_generated_space):
+    """ Write generated mask list to a file
+    """
     f = open(output_path, 'a')
     if len(masks) > 0:
         wordlength = len(masks[0].maskstring)
@@ -85,10 +94,10 @@ def print_masks_to_file(masks, line_count, total_generated_space):
             relative_ratio = mask.hitcount / float(line_count) * 100
             f.write("Mask :" + mask.maskstring + "\n")
             f.write("Hits :" + str(mask.hitcount) + "\n")
-            f.write("Ratio ::{0:.0f}%".format(relative_ratio) + "\n")
+            f.write("Relative Coverage ::{0:.0f}%".format(relative_ratio) + "\n")
             f.write("Regex :" + mask.regexstring + "\n")
             f.write("Generated space :" + str(mask.generated_space) + "\n\n")
-        f.write("Total generated_space : " + str(total_generated_space))
+        f.write("Total generated_space : " + str(total_generated_space) + "\n")
         f.write("End of masklist \n\n")
         f.write(("-" * 30 + "\n") * 3)
         f.close()
