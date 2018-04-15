@@ -12,7 +12,7 @@ maximum_generated_space = 81442800000000
 reject_special_chars = True
 split_path = "./split/"
 output_path = "./output/masks.dic"
-max_line_length = 10
+max_line_length = 3
 
 
 def main(**kwargs):
@@ -37,7 +37,8 @@ def main(**kwargs):
     for filename in os.listdir(split_path):
         if filename == "rejected_lines":
             continue
-        if int(filename[-1]) <= max_line_length:
+
+        if int(filename.split("file_")[1]) <= max_line_length:
             with open(os.path.join(split_path, filename), 'r') as fp:
                 #  lines_read, generated_space, masks = learning_algorithm(fp)
                 lines_read, generated_space, masks = stat_algorithm(fp)
@@ -68,6 +69,7 @@ def main(**kwargs):
             print "Game Over"
         else:
             print "Victory"
+        print_masks_to_file(masks, total_lines, total_generated_space)
 
 
 def print_status(line_count, masks_len, total_generated_space):
@@ -104,6 +106,11 @@ def print_masks_to_file(masks, line_count, total_generated_space):
 
 
 def split_files(filepath):
+    """ Split filepath into files of same line length
+        Rejects line if :
+            -line is too long (max_line_length parameter)
+            -line contains non ascii char and reject_special_char is true
+    """
     print "Start splitting operation..."
     special_char_regex = re.compile("[^\x00-\x7F]")
     rejection_count = 0

@@ -3,7 +3,8 @@ from charMask import charMask
 from stringMask import stringMask
 from collections import Counter
 import itertools
-char_rejection_ratio = 0.10
+import pdb
+max_mask_combinations = 100
 mask_rejection_ratio = 0.03
 
 
@@ -45,11 +46,11 @@ def stat_algorithm(file_pointer):
     def build_best_masks(char_stats):
         """ Build best masks from char distribution
             Returns a list of masks
-            -Removes rarest charclasses from charsets
             -Generates all combinations of masks from the charsets
+            -Only keep the  nth most probables combinations (max_mask_combinations)
 
             Example:
-            First letter distribution ['u':56,'d':22,'S':1] --> should reject S
+            First letter distribution ['u':56,'d':22,'S':1] 
             First letter distribution ['u':45]
             First letter distribution ['H':78,'d':34]
 
@@ -59,18 +60,21 @@ def stat_algorithm(file_pointer):
             duH
             dud
         """
-        masks = []
-        charsets_matrix = []
-        total = float(line_count)
-        for stats in char_stats:
-            charset = [char for char, count in stats.items() if count / total > char_rejection_ratio] #only keep class with frequency > char_rejection_ratio
-            charsets_matrix.append(charset)
-        combinations = set(itertools.product(*charsets_matrix))  # Cartesian product + set() for uniqueness
-        for element in combinations:
-            maskstring = "".join(element)
-            masks.append(stringMask(maskstring, ""))
+        combinations = set(itertools.product(*char_stats))  # Cartesian product + set() for uniqueness
+        mask_combinations = []
 
-        return masks
+        for combination in combinations:
+            cumulated_count = sum(count for char, count in combination)
+            combination_string = "".join(char for char, count in combination)
+            mask_combinations.append([cumulated_count, combination_string])
+        combinations_sorted = sorted(mask_combinations, key=lambda x: x[0], reverse=True)
+        kept_combinations = combinations_sorted[:max_mask_combinations]
+        kept_masks = [stringMask(maskstring, "") for count, maskstring in kept_combinations]
+        print "Top Generated Masks : "
+        for mask in kept_masks:
+            print mask.maskstring
+
+        return kept_masks
 
     char_stats = []
     lines = list(file_pointer)
@@ -79,7 +83,7 @@ def stat_algorithm(file_pointer):
     total_generated_space = 0
     print "Starting to treat words of length " + str(wordlength)
     print "Total lines : " + str(line_count)
-    print "Char Rejection Ratio : {0:.0f}%".format(char_rejection_ratio * 100)
+    print "Max mask combinations : " + str(max_mask_combinations)
     print "Mask rejection Ratio : {0:.0f}%".format(mask_rejection_ratio * 100)
     for index in range(wordlength):   # forget \n
         print "Starting stats on letter " + str(index)
@@ -87,7 +91,7 @@ def stat_algorithm(file_pointer):
         charmasks_at_index = [get_char_class_from_char(item) for item in chars_at_index]
         # Generator version
         # charmasks_at_index = (get_char_class_from_char(item) for item in [line[index] for line in lines if line]) 
-        char_distrib = Counter(charmasks_at_index)
+        char_distrib = Counter(charmasks_at_index).items()
         print "Complete Char distrib"
         print char_distrib
 
