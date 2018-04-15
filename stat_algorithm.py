@@ -43,14 +43,14 @@ def stat_algorithm(file_pointer):
             print "Kept masks " + str(len(masks))
             return total_generated_space, kept_masks
 
-    def build_best_masks(char_stats):
+    def build_best_masks(char_stats, line_number):
         """ Build best masks from char distribution
             Returns a list of masks
             -Generates all combinations of masks from the charsets
             -Only keep the  nth most probables combinations (max_mask_combinations)
 
             Example:
-            First letter distribution ['u':56,'d':22,'S':1] 
+            First letter distribution ['u':56,'d':22,'S':1]
             First letter distribution ['u':45]
             First letter distribution ['H':78,'d':34]
 
@@ -64,9 +64,12 @@ def stat_algorithm(file_pointer):
         mask_combinations = []
 
         for combination in combinations:
-            cumulated_count = sum(count for char, count in combination)
+            # cumulated_count = sum(count for char, count in combination)
+            cumulated_frequency = 1
+            for char, count in combination:
+                cumulated_frequency *= count / float(line_number)
             combination_string = "".join(char for char, count in combination)
-            mask_combinations.append([cumulated_count, combination_string])
+            mask_combinations.append([cumulated_frequency, combination_string])
         combinations_sorted = sorted(mask_combinations, key=lambda x: x[0], reverse=True)
         kept_combinations = combinations_sorted[:max_mask_combinations]
         kept_masks = [stringMask(maskstring, "") for count, maskstring in kept_combinations]
@@ -97,7 +100,7 @@ def stat_algorithm(file_pointer):
 
         char_stats.append(char_distrib)
     else:
-        best_masks = build_best_masks(char_stats)
+        best_masks = build_best_masks(char_stats, line_count)
         print "Coverage calculation..."
         total_generated_space, masks = sort_best_masks(best_masks)
 

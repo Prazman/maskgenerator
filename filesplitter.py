@@ -12,7 +12,7 @@ maximum_generated_space = 81442800000000
 reject_special_chars = True
 split_path = "./split/"
 output_path = "./output/masks.dic"
-max_line_length = 5
+max_line_length = 9
 
 
 def main(**kwargs):
