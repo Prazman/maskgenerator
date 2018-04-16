@@ -97,7 +97,7 @@ def print_masks_to_file(masks, line_count, total_generated_space):
             relative_ratio = mask.hitcount / float(line_count) * 100
             f.write("Mask :" + mask.maskstring + "\n")
             f.write("Hits :" + str(mask.hitcount) + "\n")
-            f.write("Relative Coverage ::{0:.0f}%".format(relative_ratio) + "\n")
+            f.write("Relative Coverage ::{0:.2f}%".format(relative_ratio) + "\n")
             f.write("Regex :" + mask.regexstring + "\n")
             f.write("Generated space :" + str(mask.generated_space) + "\n\n")
         f.write("Total generated_space : " + str(total_generated_space) + "\n")
@@ -117,18 +117,18 @@ def split_files(filepath, max_line_length):
     total_lines = 0
     reject_file = open(split_path + "/rejected_lines", "w")
     with open(filepath) as fp:
+        files = {}
         for index, line in enumerate(fp):
             if index % 10000 == 0:
                 print "current_line " + str(index)
-                print "rejection_count " + str(rejection_count)
-            files = {}
+                print "rejection_count " + str(rejection_count)      
             total_lines += 1
             line_length = len(line) - 1
             length_is_ok = line_length <= max_line_length
             if length_is_ok:
                 if line_length not in files:
                     name = split_path + "/file_" + str(line_length)
-                    files[line_length] = open(name, 'a')
+                    files[line_length] = open(name, 'w')
                 files[line_length].write(line)
             else:
                 rejection_count += 1
