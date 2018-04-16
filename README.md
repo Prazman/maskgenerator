@@ -6,14 +6,14 @@ For a given list of words, generate a list of masks covering most of the list
 A mask is a combination of letters representing character classes.
 
 Here is the character classes table:
-l | abcdefghijklmnopqrstuvwxyz
-u | ABCDEFGHIJKLMNOPQRSTUVWXYZ
-d | 0123456789
-h | 0123456789abcdef
-H | 0123456789ABCDEF
-s | special chars
-a | luds (minuscules, majuscules, chiffres et caractères spéciaux)
-b | 0x00 - 0xff
+|l | abcdefghijklmnopqrstuvwxyz |
+|u | ABCDEFGHIJKLMNOPQRSTUVWXYZ |
+|d | 0123456789 |
+|h | 0123456789abcdef |
+|H | 0123456789ABCDEF |
+|s | special chars |
+|a | luds (minuscules, majuscules, chiffres et caractères spéciaux) |
+|b | 0x00 - 0xff |
 
 For example, the mask lllldd covers all combinations of 4 uncaptitalized letters and 2 digits
 It's generated space is the number of combinations covered by this mask.
