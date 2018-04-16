@@ -6,14 +6,14 @@ For a given list of words, generate a list of masks covering most of the list
 A mask is a combination of letters representing character classes.
 
 Here is the character classes table:
-|l | abcdefghijklmnopqrstuvwxyz |
-|u | ABCDEFGHIJKLMNOPQRSTUVWXYZ |
-|d | 0123456789 |
-|h | 0123456789abcdef |
-|H | 0123456789ABCDEF |
-|s | special chars |
-|a | luds (minuscules, majuscules, chiffres et caractères spéciaux) |
-|b | 0x00 - 0xff |
+| l | abcdefghijklmnopqrstuvwxyz |
+| u | ABCDEFGHIJKLMNOPQRSTUVWXYZ |
+| d | 0123456789 |
+| h | 0123456789abcdef |
+| H | 0123456789ABCDEF |
+| s | special chars |
+| a | luds (minuscules, majuscules, chiffres et caractères spéciaux) |
+| b | 0x00 - 0xff |
 
 For example, the mask lllldd covers all combinations of 4 uncaptitalized letters and 2 digits
 It's generated space is the number of combinations covered by this mask.
@@ -26,7 +26,7 @@ with a maximum generated space of 81 442 800 000 000
 - Clone the repository
 - Create a folder called "split" inside the repo
 - Create a folder called "output" inside the repo
-- Run `python maskgenerator.py *path_to_dictionary_file* --split`
+- Run `python maskgenerator.py --file *path_to_dictionary_file* --split`
 
 If you want to run the script again without repeating the split operations, remove the --split parameter
 
@@ -38,10 +38,12 @@ The splitted files are kept in the /split folder
 At the end of the program, all masks are outputed to /output/masks.dic with their statistics.
 
 ### options
-`max_generated_space=x` : set x as the program's max generated space. *Default: 81 442 800 000 000*
+`--file` : the dictionary file to treat *Required*
 
-`max_line_length` : set the max line length for treated words. Oversized lines will be rejected but counted in the ratio. Longer lines = bigger generated space *Default: 9*
+`--max_generated_space` : set the program's max generated space. *Default: 81 442 800 000 000*
 
-`max_mask_combinations` : Number of mask combinations to be tested against. More combinations = more coverage but also longer computation time. *Default : 100*
+`--max_line_length` : set the max line length for treated words. Oversized lines will be rejected but counted in the ratio. Longer lines = bigger generated space *Default: 9*
 
-'mask_rejection_ratio' : Reject the mask if it covers a smaller ratio of the words of same length *Default: 3%*
+`--max_mask_combinations` : Number of mask combinations to be tested against. More combinations = more coverage but also longer computation time. *Default : 100*
+
+'--mask_rejection_ratio' : Reject the mask if it covers a smaller ratio of the words of same length *Default: 3%*

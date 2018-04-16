@@ -4,12 +4,11 @@ from stringMask import stringMask
 from collections import Counter
 import itertools
 import pdb
-max_mask_combinations = 100
-mask_rejection_ratio = 0.03
+
 
 
 @do_cprofile
-def stat_algorithm(file_pointer):
+def stat_algorithm(file_pointer, max_mask_combinations, mask_rejection_ratio):
     """ Build a list of masks from character distribution
     """
     def get_char_class_from_char(char):
