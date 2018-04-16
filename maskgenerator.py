@@ -31,7 +31,7 @@ def main():
         rejected_lines = file_len(split_path + "/rejected_lines")
     all_masks = []
     cumulated_generated_space = 0
-    treated_lines = total_lines - rejected_lines
+    treated_lines = 0
     #only open split files of correct length
     for filename in os.listdir(split_path):
         if filename == "rejected_lines":
@@ -41,6 +41,7 @@ def main():
             with open(os.path.join(split_path, filename), 'r') as fp:
                 #  lines_read, generated_space, masks = learning_algorithm(fp)
                 lines_read, generated_space, masks = stat_algorithm(fp, options["max_mask_combinations"], options["mask_rejection_ratio"])
+                treated_lines += lines_read
                 cumulated_generated_space += generated_space
                 print_status(lines_read, len(masks), cumulated_generated_space)
                 print_masks_to_file(masks, lines_read, generated_space)
