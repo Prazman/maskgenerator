@@ -67,7 +67,7 @@ def stat_algorithm(file_pointer):
             # cumulated_count = sum(count for char, count in combination)
             cumulated_frequency = 1
             for char, count in combination:
-                cumulated_frequency *= count / float(line_number)
+                cumulated_frequency *= count / float(line_number)  # multiply perchar ratios to get global ratio
             combination_string = "".join(char for char, count in combination)
             mask_combinations.append([cumulated_frequency, combination_string])
         combinations_sorted = sorted(mask_combinations, key=lambda x: x[0], reverse=True)

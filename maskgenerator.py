@@ -9,7 +9,6 @@ from stat_algorithm import stat_algorithm
 from learning_algorithm import learning_algorithm
 
 maximum_generated_space = 81442800000000
-reject_special_chars = True
 split_path = "./split/"
 output_path = "./output/masks.dic"
 max_line_length = 9
@@ -69,7 +68,7 @@ def main(**kwargs):
             print "Game Over"
         else:
             print "Victory"
-        print_masks_to_file(masks, total_lines, total_generated_space)
+        print_masks_to_file(all_masks, total_lines, total_generated_space)
 
 
 def print_status(line_count, masks_len, total_generated_space):
@@ -112,7 +111,6 @@ def split_files(filepath):
             -line contains non ascii char and reject_special_char is true
     """
     print "Start splitting operation..."
-    special_char_regex = re.compile("[^\x00-\x7F]")
     rejection_count = 0
     total_lines = 0
     reject_file = open(split_path + "/rejected_lines", "w")
@@ -125,11 +123,7 @@ def split_files(filepath):
             total_lines += 1
             line_length = len(line) - 1
             length_is_ok = line_length <= max_line_length
-            if reject_special_chars:
-                reject_line = special_char_regex.match(line) is not None
-            else:
-                reject_line = False
-            if length_is_ok and not reject_line:
+            if length_is_ok:
                 if line_length not in files:
                     name = split_path + "/file_" + str(line_length)
                     files[line_length] = open(name, 'a')
