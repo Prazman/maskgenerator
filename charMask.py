@@ -1,5 +1,6 @@
 import re
 import pdb
+import logging
 
 mask_classes = (
     ('d', '[0-9]{1}', re.compile('^[0-9]{1}$'), [(48, 57)], 10),
@@ -15,7 +16,11 @@ mask_classes = (
 
 # Get char class from a maskchar letter (ex: luds=a)
 def get_char_class_from_mask_char(maskchar):
-    return [item for item in mask_classes if item[0] == maskchar][0]
+    for mask_class in mask_classes:
+        if mask_class[0] == maskchar:
+            return mask_class
+    else:
+        logging.error('Unrecognized char mask')
 
 
 def get_char_class_from_char(char):
@@ -33,7 +38,12 @@ def get_char_class_from_char_dec(char):
     Finds the charclass using decimal ranges
     Ex: Decimal value of 'a' is 97 --> a is class 'l'
     """
-    return [item for item in mask_classes if inbounds(item[3], char)][0]
+    for mask_class in mask_classes:
+        if inbounds(mask_class[3], char):
+            return mask_class
+    else:
+        logging.error('Unrecognized character, mask b will be used instead')
+        return mask_classes[-1]
 
 
 def inbounds(boundaries_array, char):
@@ -61,9 +71,12 @@ class charMask:
     def __init__(self, maskchar, chartocover):
 
         if maskchar != "":
-            charclass = get_char_class_from_mask_char(maskchar)
+            char_class = get_char_class_from_mask_char(maskchar)
         elif chartocover != "":
-            charclass = get_char_class_from_char_dec(chartocover)
-        self.name = charclass[0]
-        self.regex = charclass[1]
-        self.generated_space = charclass[4]
+            char_class = get_char_class_from_char_dec(chartocover)
+        else:
+            logging.error('Could not create mask from empty char')
+            char_class = mask_classes[-1]
+        self.name = char_class[0]
+        self.regex = char_class[1]
+        self.generated_space = char_class[4]

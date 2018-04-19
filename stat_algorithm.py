@@ -4,10 +4,10 @@ from stringMask import stringMask
 from collections import Counter
 import itertools
 import pdb
+import logging
 
 
-
-@do_cprofile
+# @do_cprofile
 def stat_algorithm(file_pointer, max_mask_combinations, mask_rejection_ratio):
     """ Build a list of masks from character distribution
     """
@@ -28,18 +28,18 @@ def stat_algorithm(file_pointer, max_mask_combinations, mask_rejection_ratio):
         """
         kept_masks = []
         total_generated_space = 0
-        print "Generated masks " + str(len(masks))
+        logging.info("Generated masks " + str(len(masks)))
         for mask in masks:
             mask.hitcount = get_coverage_count(mask)
             hitratio = mask.hitcount / float(line_count)
             if hitratio > mask_rejection_ratio:
                 kept_masks.append(mask)
                 total_generated_space += mask.generated_space
-                print mask.maskstring + " Kept with ratio : {0:.2f}%".format(hitratio * 100)
+                logging.info(mask.maskstring + " Kept with ratio : {0:.2f}%".format(hitratio * 100))
             else:
-                print mask.maskstring + " Rejected with ratio : {0:.2f}%".format(hitratio * 100)
+                logging.info(mask.maskstring + " Rejected with ratio : {0:.2f}%".format(hitratio * 100))
         else:
-            print "Kept masks " + str(len(masks))
+            logging.info("Kept masks " + str(len(masks)))
             return total_generated_space, kept_masks
 
     def build_best_masks(char_stats, line_number):
@@ -72,9 +72,9 @@ def stat_algorithm(file_pointer, max_mask_combinations, mask_rejection_ratio):
         combinations_sorted = sorted(mask_combinations, key=lambda x: x[0], reverse=True)
         kept_combinations = combinations_sorted[:max_mask_combinations]
         kept_masks = [stringMask(maskstring, "") for count, maskstring in kept_combinations]
-        print "Top Generated Masks : "
+        logging.info("Top Generated Masks : ")
         for mask in kept_masks:
-            print mask.maskstring
+            logging.info(mask.maskstring)
 
         return kept_masks
 
@@ -83,24 +83,24 @@ def stat_algorithm(file_pointer, max_mask_combinations, mask_rejection_ratio):
     line_count = len(lines)
     wordlength = len(lines[0])-1
     total_generated_space = 0
-    print "Starting to treat words of length " + str(wordlength)
-    print "Total lines : " + str(line_count)
-    print "Max mask combinations : " + str(max_mask_combinations)
-    print "Mask rejection Ratio : {0:.0f}%".format(mask_rejection_ratio * 100)
+    logging.info("Starting to treat words of length " + str(wordlength))
+    logging.info("Total lines : " + str(line_count))
+    logging.info("Max mask combinations : " + str(max_mask_combinations))
+    logging.info("Mask rejection Ratio : {0:.0f}%".format(mask_rejection_ratio * 100))
     for index in range(wordlength):   # forget \n
-        print "Starting stats on letter " + str(index)
+        logging.info("Starting stats on letter " + str(index))
         chars_at_index = [line[index] for line in lines if line]
         charmasks_at_index = [get_char_class_from_char(item) for item in chars_at_index]
         # Generator version
         # charmasks_at_index = (get_char_class_from_char(item) for item in [line[index] for line in lines if line]) 
         char_distrib = Counter(charmasks_at_index).items()
-        print "Complete Char distrib"
-        print char_distrib
+        logging.info("Complete Char distrib")
+        logging.info(char_distrib)
 
         char_stats.append(char_distrib)
     else:
         best_masks = build_best_masks(char_stats, line_count)
-        print "Coverage calculation..."
+        logging.info("Coverage calculation...")
         total_generated_space, masks = sort_best_masks(best_masks)
 
         return line_count, total_generated_space, masks

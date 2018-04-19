@@ -4,6 +4,7 @@ import os
 import pdb
 import time
 import argparse
+import logging
 from utils import file_len, clear_file
 from stat_algorithm import stat_algorithm
 from learning_algorithm import learning_algorithm
@@ -15,8 +16,13 @@ output_path = "./output/masks.dic"
 def main():
     start_time = time.time()
     options = get_arguments()
-    print "Options"
-    print options
+    logging.info("Options")
+    logging.info(options)
+    logging_level = logging.DEBUG if options["verbose"] else logging.ERROR
+    print options['verbose']
+    print logging_level
+    logging.getLogger().setLevel(logging_level)
+
     filepath = options['filepath']
     clear_file(output_path)
     print "Start mask generation for file " + filepath
@@ -47,7 +53,7 @@ def main():
                 print_masks_to_file(masks, lines_read, generated_space)
                 all_masks += masks
                 fp.close()
-                print("--- %s seconds ---" % (time.time() - start_time))
+                logging.info("--- %s seconds ---" % (time.time() - start_time))
     else:
         total_hits = 0
         total_generated_space = 0
@@ -57,28 +63,32 @@ def main():
         else:
             rejection_ratio = rejected_lines / float(total_lines) * 100
             coverage_ratio = total_hits / float(total_lines) * 100
-            print "Total Lines : " + str(total_lines)
-            print "Total Rejected Lines : " + str(rejected_lines)
-            print "Rejection Ratio : " + str(rejection_ratio)
-            print "\n"
-            print "Total treated lines : " + str(treated_lines)
-            print "Total hits : " + str(total_hits)
-            print "Coverage Ratio: {0:.2f}%".format(coverage_ratio)
-        print "Generated space " + str(total_generated_space)
+            logging.info("Total Lines : " + str(total_lines))
+            logging.info("Total Rejected Lines : " + str(rejected_lines))
+            logging.info("Rejection Ratio : " + str(rejection_ratio))
+            logging.info("\n")
+            logging.info("Total treated lines : " + str(treated_lines))
+            logging.info("Total hits : " + str(total_hits))
+            logging.info("Coverage Ratio: {0:.2f}%".format(coverage_ratio))
+        logging.info("Generated space " + str(total_generated_space))
+
+        print "Masks Generated : " + str(len(all_masks))
+        for mask in all_masks:
+            print mask.maskstring
         if total_generated_space > options['max_generated_space']:
             print "Game Over"
         else:
             print "Victory"
         print_masks_to_file(all_masks, total_lines, total_generated_space)
-        print("--- %s seconds ---" % (time.time() - start_time))
+        logging.info("--- %s seconds ---" % (time.time() - start_time))
 
 
 def print_status(line_count, masks_len, total_generated_space):
     """ Prints current operation status
     """
-    print str(line_count) + " words treated so far... "
-    print str(masks_len) + " masks generated so far..."
-    print str(total_generated_space) + " generated space so far..."
+    logging.info(str(line_count) + " words treated so far... ")
+    logging.info(str(masks_len) + " masks generated so far...")
+    logging.info(str(total_generated_space) + " generated space so far...")
 
 
 def print_masks_to_file(masks, line_count, total_generated_space):
@@ -112,7 +122,7 @@ def split_files(filepath, max_line_length):
             -line is too long (max_line_length parameter)
             -line contains non ascii char and reject_special_char is true
     """
-    print "Start splitting operation..."
+    logging.info("Start splitting operation...")
     rejection_count = 0
     total_lines = 0
     reject_file = open(split_path + "/rejected_lines", "w")
@@ -120,8 +130,8 @@ def split_files(filepath, max_line_length):
         files = {}
         for index, line in enumerate(fp):
             if index % 10000 == 0:
-                print "current_line " + str(index)
-                print "rejection_count " + str(rejection_count)      
+                logging.info("current_line " + str(index))
+                logging.info("rejection_count " + str(rejection_count))
             total_lines += 1
             line_length = len(line) - 1
             length_is_ok = line_length <= max_line_length and line_length > 1
@@ -136,10 +146,9 @@ def split_files(filepath, max_line_length):
         else:
             for f in files:
                 files[f].close()
-                print "Length" + str(f) + " File was closed"
-            print "Total lines " + str(total_lines)
-            print "Rejected lines " + str(rejection_count)
-            print "Splitted file into same length files"
+            logging.info("Total lines " + str(total_lines))
+            logging.info("Rejected lines " + str(rejection_count))
+            logging.info("Splitted file into same length files")
             return total_lines, rejection_count
 
 
@@ -151,6 +160,7 @@ def get_arguments():
     parser.add_argument("--max_mask_combinations", dest="max_mask_combinations", default=100, type=int)
     parser.add_argument("--mask_rejection_ratio", dest="mask_rejection_ratio", default=0.03, type=float)
     parser.add_argument("--max_line_length", dest="max_line_length", default=9, type=int)
+    parser.add_argument("--verbose", help="increase output verbosity", action="store_true")
     userOpts = vars(parser.parse_args())
     return userOpts
 

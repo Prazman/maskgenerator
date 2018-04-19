@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 from charMask import charMask
 import re
-
+import logging
 
 def get_mask_regex_from_mask_string(maskstring):
     """ Builds regex concatenating regexes for one character mask
@@ -58,6 +58,8 @@ class stringMask:
             self.regexstring = mask[1]
             self.regex = re.compile(mask[1])
             self.generated_space = mask[2]
+        else:
+            logging.error("Could not create mask object from empty string")
 
     # Return True if mask covers word
     def covers(self, word):
