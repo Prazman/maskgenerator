@@ -3,7 +3,7 @@ from charMask import charMask
 import re
 
 
-def getMaskRegexFromMaskString(maskstring):
+def get_mask_regex_from_mask_string(maskstring):
     """ Builds regex concatenating regexes for one character mask
     Ex: uudl    --> ^[A-Z]{1}[A-Z]{1}[0-9]{1}[a-z]{1}$
 
@@ -18,9 +18,9 @@ def getMaskRegexFromMaskString(maskstring):
     return regex, generated_space
 
 
-def getMinimalMaskFromString(stringtocover):
+def get_minimal_mask_from_string(stringtocover):
     """ Build a mask matching given matchstring
-        Ex: Azer123 --> 
+        Ex: Azer123 -->
         mask: ulllddd
         generated_space: 26*26^4*10^4
     """
@@ -47,13 +47,13 @@ class stringMask:
         # Build mask from mask string (ex: lllldd)
         if maskstring != "":
             self.maskstring = maskstring
-            mask = getMaskRegexFromMaskString(maskstring)
+            mask = get_mask_regex_from_mask_string(maskstring)
             self.regexstring = mask[0]
             self.regex = re.compile(mask[0])
             self.generated_space = mask[1]
         # Build mask from given string (ex: abcd89!)
         elif stringtocover != "":
-            mask = getMinimalMaskFromString(stringtocover)
+            mask = get_minimal_mask_from_string(stringtocover)
             self.maskstring = mask[0]
             self.regexstring = mask[1]
             self.regex = re.compile(mask[1])

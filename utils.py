@@ -28,7 +28,7 @@ def file_len(filepath):
         return i + 1
 
 
-def clearFile(fName):
+def clear_file(fName):
     """ Remove the content of a file 
     """
     with open(fName, "w"):

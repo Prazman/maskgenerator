@@ -4,7 +4,7 @@ import os
 import pdb
 import time
 import argparse
-from utils import file_len, clearFile
+from utils import file_len, clear_file
 from stat_algorithm import stat_algorithm
 from learning_algorithm import learning_algorithm
 
@@ -14,11 +14,11 @@ output_path = "./output/masks.dic"
 
 def main():
     start_time = time.time()
-    options = getArguments()
+    options = get_arguments()
     print "Options"
     print options
     filepath = options['filepath']
-    clearFile(output_path)
+    clear_file(output_path)
     print "Start mask generation for file " + filepath
     if not os.path.isfile(filepath):
         print("File path {} does not exist. Exiting...".format(filepath))
@@ -124,7 +124,7 @@ def split_files(filepath, max_line_length):
                 print "rejection_count " + str(rejection_count)      
             total_lines += 1
             line_length = len(line) - 1
-            length_is_ok = line_length <= max_line_length
+            length_is_ok = line_length <= max_line_length and line_length > 1
             if length_is_ok:
                 if line_length not in files:
                     name = split_path + "/file_" + str(line_length)
@@ -143,7 +143,7 @@ def split_files(filepath, max_line_length):
             return total_lines, rejection_count
 
 
-def getArguments():
+def get_arguments():
     parser = argparse.ArgumentParser(description='Mask Generator')
     parser.add_argument('--split', dest='split', default=False, action='store_true')
     parser.add_argument("--file", dest="filepath",  required=True, type=str)
