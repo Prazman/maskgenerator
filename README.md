@@ -46,4 +46,6 @@ At the end of the program, all masks are outputed to /output/masks.dic with thei
 
 `--max_mask_combinations` : Number of mask combinations to be tested against. More combinations = more coverage but also longer computation time. *Default : 100*
 
-'--mask_rejection_ratio' : Reject the mask if it covers a smaller ratio of the words of same length *Default: 3%*
+`--mask_rejection_ratio` : Reject the mask if it covers a smaller ratio of the words of same length *Default: 3%*
+
+`--verbose` : Increase output verbosity *Default: false*
